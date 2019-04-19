@@ -1,0 +1,22 @@
+{
+    "Magic Kingdom":
+    {
+        "id": 1,
+        "polygon": "magic_kingdom/park.csv"
+    },
+    "Epcot":
+    {
+        "id": 2,
+        "polygon": "epcot/park.csv"
+    },
+    "Hollywood Studios":
+    {
+        "id": 3,
+        "polygon": "hollywood_studios/park.csv"
+    },
+    "Animal Kingdom":
+    {
+        "id": 4,
+        "polygon": "animal_kingdom/park.csv"
+    }
+}
