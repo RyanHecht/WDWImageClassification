@@ -8,8 +8,9 @@ import pdb
 
 api_key =  u'de2346d37930a57db36e02ccc155673b'
 api_secret = u'c4d4b868c3878f89'
+flicker_url = "flickr.com/photos/"
 
-csv_path = 'VisionFinal/regions/magic_kingdom/park.csv'
+csv_path = 'regions/magic_kingdom/park.csv'
 coords = []
 with open(csv_path, "r") as f:
     for line in f.readlines():
@@ -22,7 +23,12 @@ min_long = round(min(coords[:, 1]), 4)
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
 bbox_coords = [max_lat, max_long, min_lat, min_long]
 print(bbox_coords)
-photos_search = flickr.photos.search(bbox = bbox_coords, geo_context = 2, min_upload_date = 1524009600)
-with open("resutls.txt", "w") as g:
+photos_search = flickr.photos.search(bbox = bbox_coords)
+assert(photos_search['stat'] == 'ok')
+photos = photos_search['photos']['photo']
+pdb.set_trace()
+with open("results.json", "w") as g:
     g.write(json.dumps(photos_search))
 g.close()
+for im in photos:
+    flickr.photos.getSizes(im['id'])
