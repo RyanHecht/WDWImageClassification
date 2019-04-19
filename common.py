@@ -22,7 +22,7 @@ def save_image(image_id, size, path):
     location = flickr.photos.geo.getLocation(photo_id=image_id)['photo']['location']
     lat_lng = {'lat': location['latitude'], 'lng': location['longitude']}
     print(lat_lng)
-    update_label(path + "/labels/" + image_id + ".json", lat_lng)
+    update_label(path + "/labels/" + image_id + ".json", {'location': lat_lng})
 
 
 # Update the json in `file` with the values in the dictionary `dict`. File will be created if it doesn't exist,
