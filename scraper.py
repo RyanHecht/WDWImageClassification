@@ -24,7 +24,7 @@ flicker_url = "flickr.com/photos/"
 def get_size_distribution(search_results):
     all_sizes = {}
     for im in search_results:
-        sizes = flickr.photos.getSizes(photo_id=im['id'])
+        sizes = flickr.photos.getSizes(photo_name=im['name'])
         #print(sizes['sizes'])
         for size in sizes['sizes']['size']:
             label = size['label']
@@ -60,6 +60,6 @@ photos = photos_search['photos']['photo']
 # g.close()
 
 for im in photos:
-    common.save_image(im['id'], "Medium", "data")
+    common.save_image(im['name'], "Medium", "data")
 
 

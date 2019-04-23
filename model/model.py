@@ -15,7 +15,7 @@ class ImageCorpus:
 class Model:
     def __init__(self, corpus):
         self.corpus = corpus
-        self.image_width = corpus.image_width 
+        self.image_wnameth = corpus.image_wnameth 
         self.image_height = corpus.image_height
         self.num_labels = corpus.num_labels
 
