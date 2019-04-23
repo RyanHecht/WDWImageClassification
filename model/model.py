@@ -5,7 +5,7 @@ import numpy as np
 
 class ImageCorpus:
     def __init__(self):
-        self.image_width = 5
+        self.image_wnameth = 5
         self.image_height = 5
 
 
@@ -14,7 +14,7 @@ class ImageCorpus:
 class Model:
     def __init__(self, corpus):
         self.corpus = corpus
-        self.image_width = corpus.image_width 
+        self.image_wnameth = corpus.image_wnameth 
         self.image_height = corpus.image_height
 
 
@@ -23,7 +23,7 @@ class Model:
 
 
         # below currently uses black and white images. We can change if need be later. 
-        self.input = tf.placeholder(tf.float32, shape=[None, self.image_width, self.image_height])
+        self.input = tf.placeholder(tf.float32, shape=[None, self.image_wnameth, self.image_height])
 
         # These labels will be an integer that represents the park that the given image is associated with
         self.output = tf.placeholder(tf.int32, shape=[None])
@@ -36,7 +36,7 @@ class Model:
         self.optimize = self.optimize_tensor()
 
     def forward_pass_tensor(self):
-        flattened = tf.reshape(self.input, [-1, self.image_width * self.image_height])
+        flattened = tf.reshape(self.input, [-1, self.image_wnameth * self.image_height])
         return tf.layers.dense(flattened, 1)
         
 
