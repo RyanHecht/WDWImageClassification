@@ -42,6 +42,30 @@ def update_label(file, dict):
         
         json.dump(data, lbl_file)
 
+
+def fetch_regions(type):
+    regions = {}
+    if type == 'parks':
+        with open('regions/park_labels.json', 'r') as file:
+                data = json.load(file)
+                for id in data:
+                        regions[id] = patches.Polygon(np.genfromtxt('regions/' + data[id]['polygon'], delimiter=','))
+                        
+    elif type == 'lands':
+        with open('regions/land_labels.json', 'r') as file:
+                data = json.load(file)
+                for id in data:
+                        regions[id] = patches.Polygon(np.genfromtxt('regions/' + data[id]['polygon'], delimiter=','))
+    
+    return regions
+
+def get_label(lat, lng, regions):
+    for region in regions:
+        poly = regions[region]
+        if poly.contains_point((lat, lng)):
+            return region
+    return -1
+
 with open("config.json", 'r') as file:
     config = json.load(file)
 api_key =  config['flickr']['api_key']

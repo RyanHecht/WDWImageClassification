@@ -14,6 +14,7 @@ with open("config.json", 'r') as file:
 
 api_key =  config['flickr']['api_key']
 api_secret = config['flickr']['api_secret']
+google_key = config['google_maps']['api_key']
 flicker_url = "flickr.com/photos/"
 
 
@@ -35,6 +36,24 @@ def get_size_distribution(search_results):
                 all_sizes[label] = 1
     return all_sizes
 
+# https://developers.google.com/maps/documentation/streetview/intro
+def get_google_places(min_lat, min_long, max_lat, max_long):
+    streetview_query = "https://maps.googleapis.com/maps/api/streetview"
+    metadata_query = streetview_query + "/metadata"
+    images = 0
+    for lat in np.linspace(min_lat, max_lat, 100):
+        for lng in np.linspace(min_long, max_long, 100):
+            query_options = "?key=" + google_key + "&location=" + str(lat) + "," + str(lng)
+            
+            with urllib.request.urlopen(metadata_query + query_options) as metadata_url:
+                data = json.loads(metadata_url.read().decode())
+                if data['status'] == "OK":
+                    images += 1
+                    with urllib.request.urlopen(streetview_query + query_options) as streetview_url:
+                        # TODO: get signature
+                        pass
+
+    pass
 
 
 csv_path = 'regions/animal_kingdom/park.csv'
