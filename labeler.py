@@ -2,16 +2,38 @@ import numpy as np
 import matplotlib.patches as patches
 import os
 import json
+import common
 
-def fetch_regions():
-    for sub in [f.path for f in os.scandir("regions") if f.is_dir() ]:
-        pass
-
-def get_label(lat, lng):
-    pass
+# Labels all locations in data/labels
 
 
-mk = patches.Polygon(np.genfromtxt('regions/magic_kingdom/park.csv', delimiter=','))
+def fetch_regions(type):
+    regions = {}
+    if type == 'parks':
+        with open('regions/park_labels.json', 'r') as file:
+                data = json.load(file)
+                for id in data:
+                        regions[id] = patches.Polygon(np.genfromtxt('regions/' + data[id]['polygon'], delimiter=','))
+                        
+    elif type == 'lands':
+        with open('regions/land_labels.json', 'r') as file:
+                data = json.load(file)
+                for id in data:
+                        regions[id] = patches.Polygon(np.genfromtxt('regions/' + data[id]['polygon'], delimiter=','))
+    
+    return regions
+
+def get_label(lat, lng, regions):
+    for region in regions:
+        poly = regions[region]
+        if poly.contains_point((lat, lng)):
+            return region
+    return -1
+
+
+
+park_regions = fetch_regions('parks')
+land_regions = fetch_regions('lands')
 
 label_dir = "data/labels"
 for label_file in os.listdir(label_dir):
@@ -20,6 +42,9 @@ for label_file in os.listdir(label_dir):
         location = data['location']
         point = (float(location['lat']), float(location['lng']))
 
-        print(point)
-        print(mk.contains_point(point))
+        park_label = get_label(point[0], point[1], park_regions)
+        land_label = get_label(point[0], point[1], land_regions)
+
+        common.update_label(label_dir + "/" + label_file, {"labels": {"park": park_label, "land": land_label}})
+        
     
