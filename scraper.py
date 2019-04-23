@@ -37,7 +37,7 @@ def get_size_distribution(search_results):
 
 
 
-csv_path = 'regions/magic_kingdom/park.csv'
+csv_path = 'regions/animal_kingdom/park.csv'
 coords = []
 with open(csv_path, "r") as f:
     for line in f.readlines():
@@ -59,7 +59,9 @@ photos = photos_search['photos']['photo']
 #     g.write(json.dumps(photos_search))
 # g.close()
 
+num=0
 for im in photos:
-    common.save_image(im['name'], "Medium", "data")
-
+    common.save_image(im['id'], "Medium", "data")
+    print(num)
+    num +=1
 
