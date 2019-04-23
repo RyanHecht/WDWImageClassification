@@ -1,134 +1,124 @@
 {
-    "Magic Kingdom":
+
+    "1":
     {
-        "Adventureland":
-        {
-            "name": 1,
-            "polygon": "magic_kingdom/adventureland.csv"
-        },
-        "Entrance":
-        {
-            "name": 2,
-            "polygon": "magic_kingdom/entrance.csv"
-        },
-        "Fantasyland":
-        {
-            "name": 3,
-            "polygon": "magic_kingdom/fantasyland.csv"
-        },
-        "Frontierland":
-        {
-            "name": 4,
-            "polygon": "magic_kingdom/frontierland.csv"
-        },
-        "Liberty Square":
-        {
-            "name": 5,
-            "polygon": "magic_kingdom/liberty_square.csv"
-        },
-        "Main Street, USA":
-        {
-            "name": 6,
-            "polygon": "magic_kingdom/main_street.csv"
-        },
-        "Tomorrowland":
-        {
-            "name": 7,
-            "polygon": "magic_kingdom/tomorrowland.csv"
-        }
+        "name": "Adventureland",
+        "polygon": "magic_kingdom/adventureland.csv"
     },
-    "Epcot": 
+    "2":
     {
-        "Entrance":
-        {
-            "name": 8,
-            "polygon": "epcot/entrance.csv"
-        },
-        "Future World":
-        {
-            "name": 9,
-            "polygon": "epcot/future_world.csv"
-        },
-        "World Showcase":
-        {
-            "name": 10,
-            "polygon": "epcot/world_showcase.csv"
-        }
+        "name": "Magic Kingdom Entrance",
+        "polygon": "magic_kingdom/entrance.csv"
     },
-    "Hollywood Studios":
+    "3":
     {
-        "Animation Courtyard":
-        {
-            "name": 11,
-            "polygon": "hollywood_studios/animation_courtyard.csv"
-        },
-        "Echo Lake":
-        {
-            "name": 12,
-            "polygon": "hollywood_studios/echo_lake.csv"
-        },
-        "Entrance":
-        {
-            "name": 13,
-            "polygon": "hollywood_studios/entrance.csv"
-        },
-        "Grand Avenue":
-        {
-            "name": 14,
-            "polygon": "hollywood_studios/grand_ave.csv"
-        },
-        "Hollywood Boulevard":
-        {
-            "name": 15,
-            "polygon": "hollywood_studios/hollywood_blvd.csv"
-        },
-        "Pixar Place":
-        {
-            "name": 16,
-            "polygon": "hollywood_studios/pixar_place.csv"
-        },
-        "Sunset Boulevard":
-        {
-            "name": 17,
-            "polygon": "hollywood_studios/sunset_blvd.csv"
-        },
-        "Toy Story Land":
-        {
-            "name": 18,
-            "polygon": "hollywood_studios/toy_story_land.csv"
-        }
+        "name": "Fantasyland",
+        "polygon": "magic_kingdom/fantasyland.csv"
+    },    
+    "4":
+    {
+        "name": "Frontierland",
+        "polygon": "magic_kingdom/frontierland.csv"
     },
-    "Animal Kingdom":
+    "5":
     {
-        "Africa":
-        {
-            "name": 19,
-            "polygon": "animal_kingdom/africa.csv"
-        },
-        "Asia":
-        {
-            "name": 20,
-            "polygon": "animal_kingdom/asia.csv"
-        },
-        "Dinoland, USA":
-        {
-            "name": 21,
-            "polygon": "animal_kingdom/dinoland.csv"
-        },
-        "Discovery Island":
-        {
-            "name": 22,
-            "polygon": "animal_kingdom/discovery_island.csv"
-        },
-        "Entrance":
-        {
-            "name": 23,
-            "polygon": "animal_kingdom/entrance.csv"
-        },
-        "Pandora: The World of Avatar":
-        {
-            "name": 24,
-            "polygon": "animal_kingdom/pandora.csv"
-        }
+        "name": "Liberty Square",
+        "polygon": "magic_kingdom/libery_square.csv"
+    },    
+    "6":
+    {
+        "name": "Main Street, USA",
+        "polygon": "magic_kingdom/main_street.csv"
+    },    
+    "7":
+    {
+        "name": "Tomorrowland",
+        "polygon": "magic_kingdom/tomorrowland.csv"
+    },    
+    "8":
+    {
+        "name": "Epcot Entrance",
+        "polygon": "epcot/entrance.csv"
+    },    
+    "9":
+    {
+        "name": "Future World",
+        "polygon": "epcot/future_world.csv"
+    },    
+    "10":
+    {
+        "name": "World Showcase",
+        "polygon": "epcot/world_showcase.csv"
+    },    
+    "11":
+    {
+        "name": "Animation Courtyard",
+        "polygon": "hollywood_studios/animation_courtyard.csv"
+    },    
+    "12":
+    {
+        "name": "Echo Lake",
+        "polygon": "hollywood_studios/echo_lake.csv"
+    },    
+    "13":
+    {
+        "name": "Hollywood Studios Entrance",
+        "polygon": "hollywood_studios/entrance.csv"
+    },
+    "14":
+    {
+        "name": "Grand Avenue",
+        "polygon": "hollywood_studios/grand_ave.csv"
+    },
+    "15":
+    {
+        "name": "Hollywood Boulevard",
+        "polygon": "hollywood_studios/hollywood_blvd.csv"
+    },
+    "16":
+    {
+        "name": "Pixar Place",
+        "polygon": "hollywood_studios/pixar_place.csv"
+    },
+    "17":
+    {
+        "name": "Sunset Boulevard",
+        "polygon": "hollywood_studios/sunset_blvd.csv"
+    },
+    "18":
+    {
+        "name": "Toy Story Land",
+        "polygon": "hollywood_studios/toy_story_land.csv"
+    },
+    "19":
+    {
+        "name": "Africa",
+        "polygon": "animal_kingdom/africa.csv"
+    },
+    "20":
+    {
+        "name": "Asia",
+        "polygon": "animal_kingdom/asia.csv"
+    },
+    "21":
+    {
+        "name": "Dinoland, USA",
+        "polygon": "animal_kingdom/dinoland.csv"
+    },
+    "22":
+    {
+        "name": "Discovery Island",
+        "polygon": "animal_kingdom/discovery_island.csv"
+    },
+    "23":
+    {
+        "name": "Animal Kingdom Entrance",
+        "polygon": "animal_kingdom/entrance.csv"
+    },
+    "24":
+    {
+        "name": "Pandora: The World of Avatar",
+        "polygon": "animal_kingdom/pandora.csv"
     }
 }
+
