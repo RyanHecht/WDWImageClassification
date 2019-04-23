@@ -26,16 +26,20 @@ def save_image(image_name, size, path):
 
 # Update the json in `file` with the values in the dictionary `dict`. File will be created if it doesn't exist,
 #   and existing json data will be maintained. If a key in `dict` matches a json key in `file`, it will be overwritten
+
+# TODO: FIX IMPLEMENTATION. THIS IS CURRENTLY BROKEN AND WILL OVERWRITE EVERYTHING IN THE FILE WITH THE PASSED IN DICT
 def update_label(file, dict):
     with open(file, 'w+') as lbl_file:
-        try:
-            data = json.load(lbl_file)
-        except Exception as ex:
-            print(ex)
+        print(file)
+        if os.stat(file).st_size == 0:
+            data = {}
+        else:
+            #try:
+            #data = json.load(lbl_file)
             data = {}
         
         data.update(dict)
-        print(data)
+        
         json.dump(data, lbl_file)
 
 with open("config.json", 'r') as file:
