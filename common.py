@@ -23,6 +23,10 @@ def save_image(image_name, size, path):
     lat_lng = {'lat': location['latitude'], 'lng': location['longitude']}
     update_label(path + "/labels/" + image_name + ".json", {'location': lat_lng})
 
+def save_image_from_url(url, path, image_name, lat, lng):
+    urllib.request.urlretrieve(url, path + "/" + image_name + ".jpg")
+    lat_lng = {'lat': lat, 'lng': lng}
+    update_label(path + "/labels/" + image_name + ".json", {'location': lat_lng})
 
 # Update the json in `file` with the values in the dictionary `dict`. File will be created if it doesn't exist,
 #   and existing json data will be maintained. If a key in `dict` matches a json key in `file`, it will be overwritten
@@ -30,7 +34,7 @@ def save_image(image_name, size, path):
 # TODO: FIX IMPLEMENTATION. THIS IS CURRENTLY BROKEN AND WILL OVERWRITE EVERYTHING IN THE FILE WITH THE PASSED IN DICT
 def update_label(file, dict):
     with open(file, 'w+') as lbl_file:
-        print(file)
+        #print(file)
         if os.stat(file).st_size == 0:
             data = {}
         else:
@@ -41,30 +45,6 @@ def update_label(file, dict):
         data.update(dict)
         
         json.dump(data, lbl_file)
-
-
-def fetch_regions(type):
-    regions = {}
-    if type == 'parks':
-        with open('regions/park_labels.json', 'r') as file:
-                data = json.load(file)
-                for id in data:
-                        regions[id] = patches.Polygon(np.genfromtxt('regions/' + data[id]['polygon'], delimiter=','))
-                        
-    elif type == 'lands':
-        with open('regions/land_labels.json', 'r') as file:
-                data = json.load(file)
-                for id in data:
-                        regions[id] = patches.Polygon(np.genfromtxt('regions/' + data[id]['polygon'], delimiter=','))
-    
-    return regions
-
-def get_label(lat, lng, regions):
-    for region in regions:
-        poly = regions[region]
-        if poly.contains_point((lat, lng)):
-            return region
-    return -1
 
 with open("config.json", 'r') as file:
     config = json.load(file)
