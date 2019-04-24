@@ -3,5 +3,9 @@
         {
             "api_key":  "de2346d37930a57db36e02ccc155673b",
             "api_secret": "c4d4b868c3878f89"
+        },
+    "google_maps":
+        {
+            "api_key": "AIzaSyBVAy2uOMXaEZ4fwUrKaaQQ-HSHVpljOjc"
         }
 }
