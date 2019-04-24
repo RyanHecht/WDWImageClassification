@@ -1,0 +1,1 @@
+python3 scraper.py epcot >>epcot_log.txt 2>&1

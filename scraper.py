@@ -12,6 +12,7 @@ import common
 import base64
 import hashlib
 import hmac
+import sys
 
 with open("config.json", 'r') as file:
         config = json.load(file)
@@ -89,7 +90,7 @@ def get_streetview_in_bounding_box(min_lat, min_long, max_lat, max_long):
                 print()
                 print(e.read())               
                             
-                    
+    print("done")             
 
     pass
 
@@ -122,8 +123,20 @@ photos = photos_search['photos']['photo']
 #     print(num)
 #     num +=1
 
-get_streetview_in_bounding_box(28.41934789618234, -81.586220, 28.422, -81.577347)
-get_streetview_in_bounding_box(28.366964, -81.553664, 28.377229, -81.545482)
-get_streetview_in_bounding_box(28.353529, -81.563629, 28.361727, -81.556257)
-get_streetview_in_bounding_box(28.354428, -81.594788, 28.3639, -81.586140)
+if (len(sys.argv) == 2):
+    if sys.argv[1] == 'mk':
+        print("getting mk")
+        get_streetview_in_bounding_box(28.41934789618234, -81.586220, 28.422, -81.577347)
+    
+    if sys.argv[1] == 'epcot':
+        print("getting epcot")
+        get_streetview_in_bounding_box(28.366964, -81.553664, 28.377229, -81.545482)
+
+    if sys.argv[1] == 'dhs':
+        print("getting dhs")
+        get_streetview_in_bounding_box(28.353529, -81.563629, 28.361727, -81.556257)
+    
+    if sys.argv[1] == 'ak':
+        print("getting ak")
+        get_streetview_in_bounding_box(28.354428, -81.594788, 28.3639, -81.586140)
 
