@@ -19,13 +19,14 @@ with open("config.json", 'r') as file:
 
 api_key =  config['flickr']['api_key']
 api_secret = config['flickr']['api_secret']
-google_key = config['google_maps']['api_key']
+google_key = config['google_maps']['peter']['api_key']
 flicker_url = "flickr.com/photos/"
 
 
 
 def sign_url(input):
-    secret = "qpiUWhWBpyuWTwkA5_gldQ3FNg8="
+    #secret = "qpiUWhWBpyuWTwkA5_gldQ3FNg8="
+    secret = config['google_maps']['peter']['secret']
     url = urllib.parse.urlparse(input)
     url_to_sign = url.path + "?" + url.query
 
@@ -67,6 +68,7 @@ def get_streetview_in_bounding_box(min_lat, min_long, max_lat, max_long):
             try:
                 with urllib.request.urlopen(sign_url(metadata_query + query_options)) as metadata_url:
                     data = json.loads(metadata_url.read().decode())
+                    print(data)
                     if data['status'] == "OK":
                         images += 1
                         streetview_query_options = query_options + "&size=600x400"
@@ -95,7 +97,7 @@ def get_streetview_in_bounding_box(min_lat, min_long, max_lat, max_long):
     pass
 
 
-csv_path = 'regions/magic_kingdom/park.csv'
+csv_path = 'regions/epcot/park.csv'
 coords = []
 with open(csv_path, "r") as f:
     for line in f.readlines():
@@ -106,37 +108,39 @@ max_lat = "{:.3f}".format(max(coords[:,0]))
 max_long = "{:.3f}".format(max(coords[:, 1]))
 min_lat = "{:.3f}".format(min(coords[:, 0]))
 min_long = "{:.3f}".format(min(coords[:, 1]))
-flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
-bbox_coords = [min_long, min_lat, max_long, max_lat]
-print(bbox_coords)
-photos_search = flickr.photos.search(bbox = ",".join(bbox_coords), min_upload_date = 1524009600)
-assert(photos_search['stat'] == 'ok')
-photos = photos_search['photos']['photo']
+
 #pdb.set_trace()
 # with open("results.json", "w") as g:
 #     g.write(json.dumps(photos_search))
 # g.close()
 
-#num=0
-# for im in photos:
-#     common.save_image(im['id'], "Medium", "data")
-#     print(num)
-#     num +=1
+
 
 if (len(sys.argv) == 2):
     if sys.argv[1] == 'mk':
         print("getting mk")
-        get_streetview_in_bounding_box(28.41934789618234, -81.586220, 28.422, -81.577347)
+        get_streetview_in_bounding_box(28.42, -81.586220, 28.422, -81.577347)
     
     if sys.argv[1] == 'epcot':
         print("getting epcot")
-        get_streetview_in_bounding_box(28.366964, -81.553664, 28.377229, -81.545482)
+        get_streetview_in_bounding_box(28.371, -81.553664, 28.377229, -81.545482)
 
     if sys.argv[1] == 'dhs':
         print("getting dhs")
-        get_streetview_in_bounding_box(28.353529, -81.563629, 28.361727, -81.556257)
+        get_streetview_in_bounding_box(28.358, -81.563629, 28.361727, -81.556257)
     
     if sys.argv[1] == 'ak':
         print("getting ak")
-        get_streetview_in_bounding_box(28.354428, -81.594788, 28.3639, -81.586140)
-
+        get_streetview_in_bounding_box(28.358, -81.594788, 28.3639, -81.586140)
+else:
+    flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
+    bbox_coords = [min_long, min_lat, max_long, max_lat]
+    print(bbox_coords)
+    photos_search = flickr.photos.search(bbox = ",".join(bbox_coords), min_upload_date = 1524009600)
+    assert(photos_search['stat'] == 'ok')
+    photos = photos_search['photos']['photo']
+    num=0
+    for im in photos:
+        common.save_image(im['id'], "Medium", "data")
+        print(num)
+        num +=1

@@ -3,9 +3,9 @@ import matplotlib.patches as patches
 import os
 import json
 import common
-
+import sys
 # Labels all locations in data/labels
-
+label_dir = "data/labels"
 def fetch_regions(type):
     regions = {}
     if type == 'parks':
@@ -34,26 +34,26 @@ def get_label(lat, lng, regions):
 
 if len(sys.argv) == 2:
         if sys.argv[1] == "stats":
-                stats = {}
+                parkStats = {}
+                landStats = {}
                 for filename in os.listdir("data/labels"):
-                        with open(filename, 'r') as file:
+                        with open(label_dir + "/" + filename, 'r') as file:
                                 try:
                                         data = json.load(file)
                                         park = data['labels']['park']
                                         land = data['labels']['land']
-                                        stats[park] = stats.get(park, 0) + 1
-                                        stats[land] = stats.get(land, 0) + 1
+                                        parkStats[park] = parkStats.get(park, 0) + 1
+                                        landStats[land] = landStats.get(land, 0) + 1
                                 
                                 except Exception as e:
-                                        print(e.read())
-                        print(stats)
+                                        print(e)
+                        print(parkStats)
 else:
 
 
         park_regions = common.fetch_regions('parks')
         land_regions = common.fetch_regions('lands')
 
-        label_dir = "data/labels"
         for label_file in os.listdir(label_dir):
                 with open(label_dir + "/" + label_file, 'r') as file:
                         print(label_file)
