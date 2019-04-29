@@ -1,0 +1,2 @@
+pip3 install flickrapi
+python3 scraper.py mk >>mk_log.txt 2>&1
