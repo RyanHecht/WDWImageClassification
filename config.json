@@ -6,6 +6,11 @@
         },
     "google_maps":
         {
-            "api_key": "AIzaSyBVAy2uOMXaEZ4fwUrKaaQQ-HSHVpljOjc"
+            "api_key": "AIzaSyBVAy2uOMXaEZ4fwUrKaaQQ-HSHVpljOjc",
+			"secret": "",
+	    	"peter": {
+						"api_key": "AIzaSyBS_69uQoDSFl0yx-0LsDMkfYxl_qsNWfM",
+						"secret": "xr_ED9lzBi15gtTalLPRHGh70Qg="
+	    	 		 }
         }
 }

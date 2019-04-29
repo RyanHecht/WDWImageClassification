@@ -97,17 +97,7 @@ def get_streetview_in_bounding_box(min_lat, min_long, max_lat, max_long):
     pass
 
 
-csv_path = 'regions/epcot/park.csv'
-coords = []
-with open(csv_path, "r") as f:
-    for line in f.readlines():
-        coords.append([float(line.split(",")[i]) for i in range(len(line.split(",")))])
-coords = np.array(coords)
 
-max_lat = "{:.3f}".format(max(coords[:,0]))
-max_long = "{:.3f}".format(max(coords[:, 1]))
-min_lat = "{:.3f}".format(min(coords[:, 0]))
-min_long = "{:.3f}".format(min(coords[:, 1]))
 
 #pdb.set_trace()
 # with open("results.json", "w") as g:
@@ -133,14 +123,32 @@ if (len(sys.argv) == 2):
         print("getting ak")
         get_streetview_in_bounding_box(28.358, -81.594788, 28.3639, -81.586140)
 else:
-    flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
-    bbox_coords = [min_long, min_lat, max_long, max_lat]
-    print(bbox_coords)
-    photos_search = flickr.photos.search(bbox = ",".join(bbox_coords), min_upload_date = 1524009600)
-    assert(photos_search['stat'] == 'ok')
-    photos = photos_search['photos']['photo']
+
+    parks = ['regions/epcot/park.csv', 'regions/hollywood_studios/park.csv', 'regions/animal_kingdom/park.csv']
+    #parks = ['regions/animal_kingdom/park.csv']
     num=0
-    for im in photos:
-        common.save_image(im['id'], "Medium", "data")
-        print(num)
-        num +=1
+    for csv_path in parks:
+        print(csv_path)
+        coords = []
+        with open(csv_path, "r") as f:
+            for line in f.readlines():
+                coords.append([float(line.split(",")[i]) for i in range(len(line.split(",")))])
+        coords = np.array(coords)
+
+        max_lat = "{:.3f}".format(max(coords[:,0]))
+        max_long = "{:.3f}".format(max(coords[:, 1]))
+        min_lat = "{:.3f}".format(min(coords[:, 0]))
+        min_long = "{:.3f}".format(min(coords[:, 1]))
+        flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
+        bbox_coords = [min_long, min_lat, max_long, max_lat]
+        print(bbox_coords)
+        for page in range(8, 10):
+            print("page " + str(page))
+            photos_search = flickr.photos.search(bbox = ",".join(bbox_coords), min_upload_date = 1524009600, page=page)
+            assert(photos_search['stat'] == 'ok')
+            photos = photos_search['photos']['photo']
+            
+            for im in photos:
+                common.save_image(im['id'], "Medium", "data")
+                print(num)
+                num +=1
