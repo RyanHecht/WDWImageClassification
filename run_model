@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source rpcvision/bin/activate
+python3 model/model.py -locale $@

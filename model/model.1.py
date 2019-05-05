@@ -86,6 +86,7 @@ class Model:
         self.learning_rate = 0.0001
 
         self.input = tf.placeholder(tf.float32, shape=[None, self.image_height, self.image_width, 3])
+        print(self.input)
         # self.input = self.corpus.input_dataset_iterator.get_next()
 
         # These labels will be an integer that represents the park that the given image is associated with
@@ -93,6 +94,7 @@ class Model:
         # self.output = self.corpus.output_dataset_iterator.get_next()
 
         self.forward_pass = self.forward_pass_tensor()
+        print(self.forward_pass)
 
         self.loss = self.loss_tensor()
         self.optimize = self.optimize_tensor()
