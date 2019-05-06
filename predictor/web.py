@@ -34,7 +34,8 @@ def upload():
 
 def predict(image):
 	images = np.array([image])
-	return session.run(predict_tensor,feed_dict={input_tensor:images})
+	results = session.run(predict_tensor,feed_dict={input_tensor:images})
+	return str(results)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Run webserver that will predict the park/land of an image')
