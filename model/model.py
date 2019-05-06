@@ -90,6 +90,7 @@ class Model:
 
         # These labels will be an integer that represents the park that the given image is associated with
         self.output = tf.placeholder(tf.int32, shape=[None])
+        self.training = tf.placeholder(dtype=tf.bool)
         # self.output = self.corpus.output_dataset_iterator.get_next()
 
         self.forward_pass = self.forward_pass_tensor()
@@ -136,7 +137,10 @@ class Model:
 
         flattened = tf.reshape(pool, [-1, dist])
         flattened = tf.layers.dense(flattened, 1000)
+        flattened = tf.layers.dropout(flattened, rate=0.5, training=self.training)
         flattened = tf.layers.dense(flattened, 1000)
+        flattened = tf.layers.dropout(flattened, rate=0.5, training=self.training)
+
 
         return tf.layers.dense(flattened, self.num_labels)
 
@@ -167,7 +171,7 @@ class Model:
             for i in range(200):
                 in_, out_ = self.corpus.batch_from_file()
 
-                l = self.sess.run([self.optimize, self.accuracy], feed_dict = {self.input: in_, self.output: out_})
+                l = self.sess.run([self.optimize, self.accuracy], feed_dict = {self.input: in_, self.output: out_, self.training: True})
                 with open("loggg.txt", "a+") as f:
                     f.write(str(l))
                     f.write("\n")
@@ -182,7 +186,7 @@ class Model:
 
 
             i, o = self.corpus.batch_from_file(False)
-            l = self.sess.run([self.accuracy], feed_dict = {self.input: i, self.output: o})
+            l = self.sess.run([self.accuracy], feed_dict = {self.input: i, self.output: o, self.training: False})
             if self.num_labels == 4:
                 with open("logs/park/accuracy_park.txt", "a+") as f:
                     f.write("epoch: %d , test_acc %f\n" % (epoch, l[0]))
