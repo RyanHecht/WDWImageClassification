@@ -6,12 +6,15 @@ import cv2
 import tensorflow as tf
 import argparse
 import sys
+import json
+
 
 app = Flask(__name__)
 
 session = ""
 input_tensor = ""
 predict_tensor = ""
+model = ""
 
 @app.route('/', methods = ['GET'])
 def index():
@@ -35,7 +38,22 @@ def upload():
 def predict(image):
 	images = np.array([image])
 	results = session.run(predict_tensor,feed_dict={input_tensor:images})
-	return str(results)
+
+	arr = results[0]
+	return format_result_array(arr)
+
+def format_result_array(arr):
+	if len(arr) == 4:
+		file = "../regions/park_labels.json"
+	else:
+		file = "../regions/land_labels.json"
+	with open(file, 'r') as lbl_file:
+		data = json.load(lbl_file)
+		toReturn = {}
+		for key in data:
+			idx = int(key) - 1
+			toReturn[data[key]['name']] = arr[idx]
+		return str(toReturn)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Run webserver that will predict the park/land of an image')

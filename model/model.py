@@ -21,7 +21,7 @@ class ImageCorpus:
         self.batch_size = 120
         # create 90-10 test split of data
         if num_labels == 24:
-            self.file_names = np.array([x for x in os.listdir('./data/labels') if '_' not in x])
+            self.file_names = np.array([x for x in os.listdir('./data/labels') if '_' in x])
             test_inds = np.random.choice(range(len(self.file_names)), size = int(len(self.file_names) * TEST_SIZE), replace = False)
             self.test_file_names = self.file_names[test_inds]
             self.file_names = np.delete(self.file_names, test_inds).tolist()
@@ -86,6 +86,8 @@ class Model:
         self.learning_rate = 0.0001
 
         self.input = tf.placeholder(tf.float32, shape=[None, self.image_height, self.image_width, 3])
+        print("input")
+        print(self.input)
         # self.input = self.corpus.input_dataset_iterator.get_next()
 
         # These labels will be an integer that represents the park that the given image is associated with
@@ -94,7 +96,8 @@ class Model:
         # self.output = self.corpus.output_dataset_iterator.get_next()
 
         self.forward_pass = self.forward_pass_tensor()
-
+        print("forward")
+        print(self.forward_pass)
         self.loss = self.loss_tensor()
         self.optimize = self.optimize_tensor()
 
