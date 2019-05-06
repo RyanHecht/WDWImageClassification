@@ -42,7 +42,7 @@ if __name__ == "__main__":
 	parser.parse_args()
 	model = sys.argv[2]
 	model_path = "../model/" + model
-	session = tf.Session()
+	session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
 	print("Recreating graph structure from meta file\n")
 	"../model/"
 	new_saver = tf.train.import_meta_graph(model_path + ".meta")
@@ -57,5 +57,5 @@ if __name__ == "__main__":
 	print("Getting prediction tensor")
 	predict_tensor = graph.get_tensor_by_name("dense_2/BiasAdd:0")
 	print("Starting webserver")
-	http_server = WSGIServer(('', 8080), app)
+	http_server = WSGIServer(('', 80), app)
 	http_server.serve_forever()
