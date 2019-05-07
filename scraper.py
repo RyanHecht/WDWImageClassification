@@ -101,10 +101,12 @@ imgs = [x for x in os.listdir('./data/labels') if '_' in x]
 pattern = re.compile("(.*)([_](.*)[_].*\.jpg)")
 panoramas = set()
 for img in imgs:
+    print("image: " + img)
     match = pattern.fullmatch(img)
-    pano_id = match.group(1)
-    panoramas.add(pano_id)
-    print(pano_id)
+    if match != None:
+        pano_id = match.group(1)
+        panoramas.add(pano_id)
+        print(pano_id)
 print(len(panoramas))
 #pdb.set_trace()
 # with open("results.json", "w") as g:
