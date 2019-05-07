@@ -47,7 +47,7 @@ class SavedModel:
 			toReturn = {}
 			for key in data:
 				idx = int(key) - 1
-				toReturn[data[key]['name']] = arr[idx]
+				toReturn[data[key]['name']] = float(arr[idx])
 		print(toReturn)
 		return toReturn
 
