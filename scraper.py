@@ -141,7 +141,7 @@ def get_45_degree_angles():
 
     print(len(panoramas))
     for panorama in panoramas:
-        label = './data/labels/' + panorama + "_0_0.jpg"
+        label = './data/labels/' + panorama + "_0_0.json"
         try:
             with open(label, 'r') as file:
                 data = json.load(file)
