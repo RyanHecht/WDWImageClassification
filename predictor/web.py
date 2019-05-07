@@ -16,8 +16,8 @@ land_model = None
 
 class SavedModel:
 	def __init__(self, model_path, name):
-		self.session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
 		self.graph = tf.Graph()
+		self.session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
 		with self.graph.as_default():
 			print(name + ": Recreating graph structure from meta file\n")
 			saver = tf.train.import_meta_graph(model_path + ".meta")
