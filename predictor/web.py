@@ -58,7 +58,7 @@ def format_result_array(arr):
 			idx = int(key) - 1
 			toReturn[data[key]['name']] = arr[idx]
 	print(toReturn)
-		return str(toReturn)
+	return str(toReturn)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Run webserver that will predict the park/land of an image')
