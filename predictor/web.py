@@ -16,6 +16,9 @@ input_tensor = ""
 predict_tensor = ""
 model = ""
 
+# class SavedModel:
+# 	def __init__(self, input_tensor, predict_tensor, model)
+
 @app.route('/', methods = ['GET'])
 def index():
     return current_app.send_static_file('index.html')
@@ -43,6 +46,7 @@ def predict(image):
 	return format_result_array(arr)
 
 def format_result_array(arr):
+	print(arr)
 	if len(arr) == 4:
 		file = "../regions/park_labels.json"
 	else:
@@ -53,6 +57,7 @@ def format_result_array(arr):
 		for key in data:
 			idx = int(key) - 1
 			toReturn[data[key]['name']] = arr[idx]
+	print(toReturn)
 		return str(toReturn)
 
 if __name__ == "__main__":
