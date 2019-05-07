@@ -27,7 +27,7 @@ class SavedModel:
 		self.graph = tf.get_default_graph()
 		self.input_tensor = self.graph.get_tensor_by_name("Placeholder:0")
 		self.predict_tensor = self.graph.get_tensor_by_name("dense_2/BiasAdd:0")
-		self.dropout_tensor = self.graph.get_tensor_by_name("Placeholder_2")
+		self.dropout_tensor = self.graph.get_tensor_by_name("Placeholder_2:0")
 	
 	def predict(self, image):
 		images = np.array([image])
