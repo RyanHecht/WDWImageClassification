@@ -79,6 +79,8 @@ if __name__ == "__main__":
 	park_model_path = "../model/" + args.park
 	land_model_path = "../model/" + args.land
 
+	print(park_model_path)
+	print(land_model_path)
 	park_model = SavedModel(park_model_path, "park")
 	land_model = SavedModel(land_model_path, "land")
 	
