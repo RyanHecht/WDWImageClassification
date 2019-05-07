@@ -90,36 +90,10 @@ def get_streetview(lat, lng, headings, pitches):
 def get_streetview_in_bounding_box(min_lat, min_long, max_lat, max_long):
     streetview_query = "https://maps.googleapis.com/maps/api/streetview"
     metadata_query = streetview_query + "/metadata"
-    images = 0
+    
     for lat in np.linspace(min_lat, max_lat, 100):
         for lng in np.linspace(min_long, max_long, 100):
-            query_options = "?key=" + google_key + "&location=" + str(lat) + "," + str(lng)
-            try:
-                with urllib.request.urlopen(sign_url(metadata_query + query_options)) as metadata_url:
-                    data = json.loads(metadata_url.read().decode())
-                    print(data)
-                    if data['status'] == "OK":
-                        images += 1
-                        streetview_query_options = query_options + "&size=600x400"
-                        headings = [0, 90, 180, 270]
-                        pitches = [0, 30, -30]
-                        real_lat = data['location']['lat']
-                        real_lng = data['location']['lng']
-                        print(str(real_lat) + ", " + str(real_lng))
-                        for heading in headings:
-                            for pitch in pitches:
-                                try:
-                                    image_name = data['pano_id'] + "_" + str(heading) + "_" + str(pitch)
-                                    image_url = streetview_query + streetview_query_options + "&heading=" + str(heading) + "&pitch=" + str(pitch)
-                                    common.save_image_from_url(sign_url(image_url), "data", image_name, real_lat, real_lng)
-                                except HTTPError as e:
-                                    print(str(heading) + ", " + str(pitch) + " Error: ")
-                                    print(sign_url(image_url))
-                                    #print(e.read())
-            except HTTPError as e:
-                print("Error!")
-                print()
-                print(e.read())               
+            get_streetview(lat, lng, [0, 90, 180, 170], [-30, 0, 30])               
                             
     print("done")             
 
