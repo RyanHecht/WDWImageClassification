@@ -11,6 +11,10 @@
 	    	"peter": {
 						"api_key": "AIzaSyBS_69uQoDSFl0yx-0LsDMkfYxl_qsNWfM",
 						"secret": "xr_ED9lzBi15gtTalLPRHGh70Qg="
-	    	 		 }
+                      },
+            "rpcvision1": {
+                        "api_key": "AIzaSyB_qVbirzoGOtafkpWXzgefptPkjnKJs8Y",
+                        "secret": "7doJPXqoLuzc1BCYj1ED6L7hloI="
+            }
         }
 }
