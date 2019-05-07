@@ -97,13 +97,22 @@ def get_streetview_in_bounding_box(min_lat, min_long, max_lat, max_long):
     pass
 
 
-
-
+imgs = [x for x in os.listdir('./data/labels') if '_' in x]
+pattern = re.compile("(.*)([_](.*)[_].*\.jpg)")
+panoramas = set()
+for img in imgs:
+    match = pattern.fullmatch(img)
+    pano_id = match.group(1)
+    panoramas.add(pano_id)
+    print(pano_id)
+print(len(panoramas))
 #pdb.set_trace()
 # with open("results.json", "w") as g:
 #     g.write(json.dumps(photos_search))
 # g.close()
 
+print("exiting")
+exit(0)
 
 
 if (len(sys.argv) == 2):
