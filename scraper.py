@@ -142,11 +142,12 @@ def get_45_degree_angles():
     print(len(panoramas))
     for panorama in panoramas:
         label = './data/labels/' + panorama + "_0_0.jpg"
-        with open(label, 'r') as file:
-            data = json.load(file)
-            lat = data['location']['lat']
-            lng = data['location']['lng']
-            get_streetview(float(lat), float(lng), [45, 135, 225, 315], [10])
+        try:
+            with open(label, 'r') as file:
+                data = json.load(file)
+                lat = data['location']['lat']
+                lng = data['location']['lng']
+                get_streetview(float(lat), float(lng), [45, 135, 225, 315], [10])
         except FileNotFoundError:
             print("file not found: " + label)
 
