@@ -46,9 +46,29 @@ def update_label(file, dict):
         
         json.dump(data, lbl_file)
 
+
+def get_images_by_park():
+    toReturn = {}
+    for filename in [x for x in os.listdir("data/labels") if "_" in x]:
+        with open("data/labels/" + filename, 'r') as file:
+            image_name = os.path.splitext(os.path.basename("data/labels/" + filename))[0]
+            try:
+                data = json.load(file)
+                park = data['labels']['park']
+                land = data['labels']['land']
+                if park in toReturn:
+                    toReturn[park].append(image_name)
+                else:
+                    toReturn[park] = [image_name]
+            
+            except Exception as e:
+                print("error reading file: " + e)
+    return toReturn
+
 with open("config.json", 'r') as file:
     config = json.load(file)
 api_key =  config['flickr']['api_key']
 api_secret = config['flickr']['api_secret']
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
-    
+
+get_images_by_park()
