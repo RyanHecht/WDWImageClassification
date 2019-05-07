@@ -17,17 +17,18 @@ land_model = None
 class SavedModel:
 	def __init__(self, model_path, name):
 		self.session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
-		print(name + ": Recreating graph structure from meta file\n")
-		saver = tf.train.import_meta_graph(model_path + ".meta")
-		print(name + ": Restoring variables from %s\n" % model_path)
-		saver.restore(self.session, model_path)
-		print(name + ": Initializing global variables")
-		self.session.run(tf.global_variables_initializer())
-		print(name + ": Getting tensors")
-		self.graph = tf.get_default_graph()
-		self.input_tensor = self.graph.get_tensor_by_name("Placeholder:0")
-		self.predict_tensor = self.graph.get_tensor_by_name("dense_2/BiasAdd:0")
-		self.dropout_tensor = self.graph.get_tensor_by_name("Placeholder_2:0")
+		self.graph = tf.Graph()
+		with self.graph.as_default():
+			print(name + ": Recreating graph structure from meta file\n")
+			saver = tf.train.import_meta_graph(model_path + ".meta")
+			print(name + ": Restoring variables from %s\n" % model_path)
+			saver.restore(self.session, model_path)
+			print(name + ": Initializing global variables")
+			self.session.run(tf.global_variables_initializer())
+			print(name + ": Getting tensors")
+			self.input_tensor = self.graph.get_tensor_by_name("Placeholder:0")
+			self.predict_tensor = self.graph.get_tensor_by_name("dense_2/BiasAdd:0")
+			self.dropout_tensor = self.graph.get_tensor_by_name("Placeholder_2:0")
 	
 	def predict(self, image):
 		images = np.array([image])
