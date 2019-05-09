@@ -35,7 +35,36 @@
                     
                     
                     <input type="submit" class="btn-large waves-effect waves-light blue" value="Upload Image" name="submit" id="submit">
-                    <div id="results"></div>
+                    <div id="results">
+                        <div class="row">
+                            <div class="col s6">
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Park</th>
+                                            <th>Logit Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="parkTable">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col s6">
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Land</th>
+                                            <th>Logit Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="landTable">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -52,6 +81,38 @@ var fileSelect = document.getElementById('fileToUpload');
 var uploadButton = document.getElementById('submit');
 
 var results = document.getElementById("results");
+
+var parkTable = document.getElementById("parkTable");
+var landTable = document.getElementById("landTable");
+
+var fillTable = function(table, data, keys) {
+    table.innerHTML = "";
+
+    for (var i in keys) {
+        var row = document.createElement("tr");
+        var datumName = document.createElement("td");
+        var datumLogit = document.createElement("td");
+        
+        datumName.innerHTML = keys[i];
+        datumLogit.innerHTML = data[keys[i]];
+
+        row.appendChild(datumName);
+        row.appendChild(datumLogit);
+        table.appendChild(row);
+    }
+}
+
+var handleResults = function(results) {
+    park = results['park'];
+    land = results['land'];
+    
+    sortedParks = Object.keys(park).sort(function(a,b){return park[b]-park[a]});
+    sortedLands = Object.keys(land).sort(function (a, b) {return land[b] - land[a]});
+
+    fillTable(parkTable, park, sortedParks);
+    fillTable(landTable, land, sortedLands);
+
+}
 
 form.onsubmit = function(event) {
     console.log("hi");
@@ -72,11 +133,7 @@ form.onsubmit = function(event) {
         // File(s) uploaded.
         uploadButton.innerHTML = 'Upload';
         console.log(xhr.response);
-        var res = document.createElement("p");
-        var text = document.createTextNode(xhr.response);
-        res.appendChild(text);
-
-        results.appendChild(res);
+        handleResults(xhr.response);
         
     } else {
         alert("Error uploading image!");
