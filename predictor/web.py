@@ -17,7 +17,8 @@ land_model = None
 class SavedModel:
 	def __init__(self, model_path, name):
 		self.graph = tf.Graph()
-		self.session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}), graph=self.graph)
+		#self.session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}), graph=self.graph)
+		self.session = tf.Session(graph=self.graph)
 		with self.graph.as_default():
 			print(name + ": Recreating graph structure from meta file\n")
 			saver = tf.train.import_meta_graph(model_path + ".meta")
@@ -86,5 +87,5 @@ if __name__ == "__main__":
 	land_model = SavedModel(land_model_path, "land")
 	
 	print("Starting webserver")
-	http_server = WSGIServer(('', 80), app)
+	http_server = WSGIServer(('', 25565), app)
 	http_server.serve_forever()
