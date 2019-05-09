@@ -132,8 +132,9 @@ form.onsubmit = function(event) {
     if (xhr.status === 200) {
         // File(s) uploaded.
         uploadButton.innerHTML = 'Upload';
-        console.log(xhr.response);
-        handleResults(xhr.response);
+        results = JSON.parse(xhr.response);
+        console.log(results);
+        handleResults(JSON.parse(results));
         
     } else {
         alert("Error uploading image!");
