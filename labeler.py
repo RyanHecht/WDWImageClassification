@@ -48,6 +48,7 @@ if len(sys.argv) == 2:
                                 except Exception as e:
                                         print(e)
                         print(parkStats)
+                        print(landStats)
 else:
 
 
