@@ -134,7 +134,7 @@ form.onsubmit = function(event) {
         uploadButton.innerHTML = 'Upload';
         results = JSON.parse(xhr.response);
         console.log(results);
-        handleResults(JSON.parse(results));
+        handleResults(results);
         
     } else {
         alert("Error uploading image!");
