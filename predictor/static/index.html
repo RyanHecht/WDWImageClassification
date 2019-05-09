@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        
+    </head>
 <body>
 
-<form id="file-form" action="/upload" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit" id="submit">
-    <div id="results"></div>
-</form>
+    <nav class="blue" role="navigation">
+        <div class="nav-wrapper">
+            <a class="brand-logo">WDW Image Classifier</a>
+        </div>
+    </nav>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <br><br>
+            <h1 class="header center blue-text">Upload an image:</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">We'll try to guess which Walt Disney World park/themed land it was taken in!</h5>
+            </div>
+            <div class="row center">
+                <form id="file-form" action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="file-field input-field">
+                        <div class="btn blue">
+                            <span>Choose File</span>
+                            <input type="file" name="fileToUpload" id="fileToUpload" >
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+
+                    </div>
+                    
+                    
+                    <input type="submit" class="btn-large waves-effect waves-light blue" value="Upload Image" name="submit" id="submit">
+                    <div id="results"></div>
+                </form>
+            </div>
+
+            <br><br>
+    
+        </div>
+    </div>
+
+
 
 <script>
 var form = document.getElementById('file-form');
@@ -55,5 +92,9 @@ form.onsubmit = function(event) {
 
 </script>
 
+
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
