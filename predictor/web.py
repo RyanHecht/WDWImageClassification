@@ -33,8 +33,9 @@ class SavedModel:
 	
 	def predict(self, image):
 		images = np.array([image])
-		results = self.session.run(self.predict_tensor,feed_dict={self.input_tensor:images, self.dropout_tensor:False})
+		results = self.session.run(tf.nn.softmax(self.predict_tensor),feed_dict={self.input_tensor:images, self.dropout_tensor:False})
 		arr = results[0]
+
 		return self.format_result_array(arr)
 
 	def format_result_array(self, arr):
