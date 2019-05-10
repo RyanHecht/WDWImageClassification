@@ -24,7 +24,7 @@ class ImageCorpus:
         self.image_width = width
         self.image_height = height
 
-        self.batch_size = 1
+        self.batch_size = 120
         # create 90-10 test split of data
         self.file_names = np.array([x for x in os.listdir('./data/labels') if '_' in x])
         test_inds = np.random.choice(range(len(self.file_names)), size = int(len(self.file_names) * TEST_SIZE), replace = False)
@@ -165,9 +165,8 @@ class Model:
 
             for i in range(200):
                 in_, out_ = self.corpus.batch_from_file()
-                print("out: ", out_)
-                o, l, fp = self.sess.run([self.optimize, self.loss, self.forward_pass], feed_dict = {self.input: in_, self.output: out_, self.training: True})
-                print("forward pass:", fp)
+
+                o, l = self.sess.run([self.optimize, self.loss], feed_dict = {self.input: in_, self.output: out_, self.training: True})
                 with open("logggp.txt", "a+") as f:
                     f.write(str(l))
                     f.write("\n")
