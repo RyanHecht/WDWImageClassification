@@ -18,7 +18,7 @@
             <br><br>
             <h1 class="header center blue-text">Upload an image:</h1>
             <div class="row center">
-                <h5 class="header col s12 light">We'll try to guess which Walt Disney World park/themed land it was taken in!</h5>
+                <h5 class="header col s12 light">We'll try to locate where in Walt Disney World it was taken!</h5>
             </div>
             <div class="row center">
                 <form id="file-form" action="/upload" method="post" enctype="multipart/form-data">
@@ -35,6 +35,18 @@
                     
                     <div class="row">
                         <input type="submit" class="btn-large waves-effect waves-light blue" value="Upload Image" name="submit" id="submit">
+                    </div>
+
+                    <div id="spinner" class="preloader-wrapper big active" style="display:none">
+                            <div class="spinner-layer spinner-blue-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
                     </div>
                     
                     <div id="results">
@@ -145,8 +157,10 @@ var handleResults = function(results) {
 }
 
 form.onsubmit = function(event) {
-    console.log("hi");
     event.preventDefault();
+
+    var spinner = document.getElementById("spinner");
+    spinner.style.display = "block";
 
     uploadButton.innerHTML = 'Uploading...';
 
@@ -161,7 +175,8 @@ form.onsubmit = function(event) {
     xhr.onload = function () {
     if (xhr.status === 200) {
         // File(s) uploaded.
-        uploadButton.innerHTML = 'Upload';
+        var spinner = document.getElementById("spinner");
+        spinner.style.display = "none";
         results = JSON.parse(xhr.response);
         console.log(results);
         handleResults(results);
