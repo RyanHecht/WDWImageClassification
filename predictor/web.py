@@ -13,6 +13,8 @@ app = Flask(__name__)
 
 park_model = None
 land_model = None
+geo_model = None
+
 
 class SavedModel:
 	def __init__(self, model_path, name):
@@ -53,6 +55,34 @@ class SavedModel:
 		print(toReturn)
 		return toReturn
 
+class SavedGeoModel:
+	def __init__(self, model_path, name):
+		self.graph = tf.Graph()
+		#self.session = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}), graph=self.graph)
+		self.session = tf.Session(graph=self.graph)
+		with self.graph.as_default():
+			print(name + ": Recreating graph structure from meta file\n")
+			saver = tf.train.import_meta_graph(model_path + ".meta")
+			print(name + ": Restoring variables from %s\n" % model_path)
+			saver.restore(self.session, model_path)
+			print(name + ": Initializing global variables")
+			self.session.run(tf.global_variables_initializer())
+			print(name + ": Getting tensors")
+			self.input_tensor = self.graph.get_tensor_by_name("input")
+			self.predict_tensor = self.graph.get_tensor_by_name("forwardpass")
+			self.dropout_tensor = self.graph.get_tensor_by_name("training")
+	
+	def predict(self, image):
+		images = np.array([image])
+		results = self.session.run(self.predict_tensor,feed_dict={self.input_tensor:images, self.dropout_tensor:False})
+		
+		
+		loc = self.untransform_location(results[0], results[1])
+		return {"lat": loc[0], "lng": loc[1]}
+
+	def untransform_location(self, lat, lng):
+		return ((lat / 1000.0) + 28.38895, -1 * ((lng / 1000.0) + 81.5583))
+
 @app.route('/', methods = ['GET'])
 def index():
     return current_app.send_static_file('index.html')
@@ -69,7 +99,7 @@ def upload():
 
 	image = cv2.resize(image, dsize=(600, 400), interpolation=cv2.INTER_CUBIC)
 
-	return json.dumps({'park': park_model.predict(image), 'land': land_model.predict(image)})
+	return json.dumps({'park': park_model.predict(image), 'land': land_model.predict(image), 'geo': geo_mode.predict(image)})
 
 
 
@@ -77,16 +107,21 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Run webserver that will predict the park/land of an image')
 	parser.add_argument('-park', help='Path to the park model name. e.g., "park/model-epoch3-100"', required=True)
 	parser.add_argument('-land', help='Path to the land model name. e.g., "land/model-epoch3-100"', required=True)
+	parser.add_argument('-geo', help='Path to the geo model name. e.g., "geo/model-epoch3-100"', required=True)
 	args = parser.parse_args()
 	
 	park_model_path = "../model/" + args.park
 	land_model_path = "../model/" + args.land
+	geo_model_path = "../model/" + args.geo
 
 	print(park_model_path)
 	print(land_model_path)
+	print(geo_model_path)
+
+	geo_model = SavedModelGeo(geo_model_path, "geo")
 	park_model = SavedModel(park_model_path, "park")
 	land_model = SavedModel(land_model_path, "land")
 	
 	print("Starting webserver")
-	http_server = WSGIServer(('', 25565), app)
+	http_server = WSGIServer(('', 80), app)
 	http_server.serve_forever()
