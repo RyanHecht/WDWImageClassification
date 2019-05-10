@@ -12,6 +12,13 @@ import argparse
 import pdb 
 TEST_SIZE = 0.10
 
+
+def transform_location(lat, lng):
+    final_lat = (lat - 28.38895) * 1000
+    final_lng = (-81.5583 - lng) * 1000
+
+    return (final_lat, final_lng)
+
 class ImageCorpus:
     def __init__(self, width, height, image_directory):
         self.image_width = width
@@ -57,7 +64,7 @@ class ImageCorpus:
 
             with open('./data/labels/' + json_name) as json_file:
                 data = json.load(json_file)
-                loc = float(data['location']['lat']), float(data['location']['lng'])
+                loc = transform_location(float(data['location']['lat']), float(data['location']['lng']))
 
                 labels.append(loc)
 
