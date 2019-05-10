@@ -165,9 +165,9 @@ class Model:
 
             for i in range(200):
                 in_, out_ = self.corpus.batch_from_file()
-                print("out: " + out_)
+                print("out: ", out_)
                 o, l, fp = self.sess.run([self.optimize, self.loss, self.forward_pass], feed_dict = {self.input: in_, self.output: out_, self.training: True})
-                print("forward pass:" + fp)
+                print("forward pass:", fp)
                 with open("logggp.txt", "a+") as f:
                     f.write(str(l))
                     f.write("\n")
