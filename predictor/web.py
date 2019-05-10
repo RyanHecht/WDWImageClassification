@@ -99,7 +99,7 @@ def upload():
 
 	image = cv2.resize(image, dsize=(600, 400), interpolation=cv2.INTER_CUBIC)
 
-	return json.dumps({'park': park_model.predict(image), 'land': land_model.predict(image), 'geo': geo_mode.predict(image)})
+	return json.dumps({'park': park_model.predict(image), 'land': land_model.predict(image), 'geo': geo_model.predict(image)})
 
 
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 	print(land_model_path)
 	print(geo_model_path)
 
-	geo_model = SavedModelGeo(geo_model_path, "geo")
+	geo_model = SavedGeoModel(geo_model_path, "geo")
 	park_model = SavedModel(park_model_path, "park")
 	land_model = SavedModel(land_model_path, "land")
 	
