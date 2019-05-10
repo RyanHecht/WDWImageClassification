@@ -6,7 +6,7 @@
         
     </head>
 <body>
-
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <nav class="blue" role="navigation">
         <div class="nav-wrapper">
             <a class="brand-logo">WDW Image Classifier</a>
@@ -33,16 +33,21 @@
 
                     </div>
                     
+                    <div class="row">
+                        <input type="submit" class="btn-large waves-effect waves-light blue" value="Upload Image" name="submit" id="submit">
+                    </div>
                     
-                    <input type="submit" class="btn-large waves-effect waves-light blue" value="Upload Image" name="submit" id="submit">
                     <div id="results">
+                        <div class="row center">
+                        <div id="mapdiv" style="height:250px"></div>
+                        </div>
                         <div class="row">
                             <div class="col s6">
                                 <table class="striped">
                                     <thead>
                                         <tr>
                                             <th>Park</th>
-                                            <th>Logit Value</th>
+                                            <th>Confidence</th>
                                         </tr>
                                     </thead>
                                     <tbody id="parkTable">
@@ -55,7 +60,7 @@
                                     <thead>
                                         <tr>
                                             <th>Land</th>
-                                            <th>Logit Value</th>
+                                            <th>Confidence</th>
                                         </tr>
                                     </thead>
                                     <tbody id="landTable">
@@ -102,9 +107,34 @@ var fillTable = function(table, data, keys) {
     }
 }
 
+var setMap = function(lat, lng) {
+    var map = new OpenLayers.Map("mapdiv");
+    map.addLayer(new OpenLayers.Layer.OSM());
+
+    var lonLat = new OpenLayers.LonLat(lng, lat).transform(
+            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            map.getProjectionObject() // to Spherical Mercator Projection
+          );
+    
+    var zoom = 17;
+
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(markers);
+    
+    markers.addMarker(new OpenLayers.Marker(lonLat));
+    
+    map.setCenter (lonLat, zoom);
+}
+
+setMap(28.417585, -81.581220);
+
 var handleResults = function(results) {
     park = results['park'];
     land = results['land'];
+
+    geo = results['geo'];
+
+    setMap(geo['lat'], geo['lng']);
     
     sortedParks = Object.keys(park).sort(function(a,b){return park[b]-park[a]});
     sortedLands = Object.keys(land).sort(function (a, b) {return land[b] - land[a]});
