@@ -76,8 +76,10 @@ class SavedGeoModel:
 		images = np.array([image])
 		results = self.session.run(self.predict_tensor,feed_dict={self.input_tensor:images, self.dropout_tensor:False})
 		
+		print(results)
+		result = results[0]
 		
-		loc = self.untransform_location(results[0], results[1])
+		loc = self.untransform_location(result[0], result[1])
 		return {"lat": loc[0], "lng": loc[1]}
 
 	def untransform_location(self, lat, lng):
