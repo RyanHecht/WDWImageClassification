@@ -69,7 +69,7 @@ class SavedGeoModel:
 			self.session.run(tf.global_variables_initializer())
 			print(name + ": Getting tensors")
 			self.input_tensor = self.graph.get_tensor_by_name("input:0")
-			self.predict_tensor = self.graph.get_tensor_by_name("forwardpass:0")
+			self.predict_tensor = self.graph.get_tensor_by_name("forwardpass/BiasAdd:0")
 			self.dropout_tensor = self.graph.get_tensor_by_name("training:0")
 	
 	def predict(self, image):
