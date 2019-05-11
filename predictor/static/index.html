@@ -19,6 +19,7 @@
             <h1 class="header center blue-text">Upload an image:</h1>
             <div class="row center">
                 <h5 class="header col s12 light">We'll try to locate where in Walt Disney World it was taken!</h5>
+                <p>(Due to some RAM issues, it might take upwards of 15 minutes to complete...get cozy!)</p>
             </div>
             <div class="row center">
                 <form id="file-form" action="/upload" method="post" enctype="multipart/form-data">
@@ -36,8 +37,8 @@
                     <div class="row">
                         <input type="submit" class="btn-large waves-effect waves-light blue" value="Upload Image" name="submit" id="submit">
                     </div>
-
-                    <div id="spinner" class="preloader-wrapper big active center" style="display:none">
+                    <div class="row center">
+                        <div id="spinner" class="preloader-wrapper big active center" style="display:none">
                             <div class="spinner-layer spinner-blue-only">
                               <div class="circle-clipper left">
                                 <div class="circle"></div>
@@ -47,7 +48,9 @@
                                 <div class="circle"></div>
                               </div>
                             </div>
+                        </div>
                     </div>
+                    
                     
                     <div id="results">
                         <div class="row center">
