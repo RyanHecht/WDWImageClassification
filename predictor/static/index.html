@@ -120,6 +120,7 @@ var fillTable = function(table, data, keys) {
 }
 
 var setMap = function(lat, lng) {
+    document.getElementById('mapdiv').innerHTML = "";
     var map = new OpenLayers.Map("mapdiv");
     map.addLayer(new OpenLayers.Layer.OSM());
 
