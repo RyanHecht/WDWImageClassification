@@ -30,12 +30,12 @@ class SavedModel:
 			self.session.run(tf.global_variables_initializer())
 			print(name + ": Getting tensors")
 			self.input_tensor = self.graph.get_tensor_by_name("Placeholder:0")
-			self.predict_tensor = self.graph.get_tensor_by_name("dense_2/BiasAdd:0")
+			self.predict_tensor = tf.nn.softmax(self.graph.get_tensor_by_name("dense_2/BiasAdd:0"))
 			self.dropout_tensor = self.graph.get_tensor_by_name("Placeholder_2:0")
 	
 	def predict(self, image):
 		images = np.array([image])
-		results = self.session.run(tf.nn.softmax(self.predict_tensor),feed_dict={self.input_tensor:images, self.dropout_tensor:False})
+		results = self.session.run(self.predict_tensor,feed_dict={self.input_tensor:images, self.dropout_tensor:False})
 		arr = results[0]
 
 		return self.format_result_array(arr)
