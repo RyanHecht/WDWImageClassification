@@ -1,3 +1,5 @@
+Made as a final project for Brown University CSCI 1430: Introduction to Computer Vision
+
 Abstract
 ========
 
