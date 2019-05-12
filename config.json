@@ -1,20 +1,21 @@
 {
+    "All of the keys formerly in this file have been invalidated,": "so don't think you're smart if you try anduse them :p",
     "flickr":
         {
-            "api_key":  "de2346d37930a57db36e02ccc155673b",
-            "api_secret": "c4d4b868c3878f89"
+            "api_key":  "",
+            "api_secret": ""
         },
     "google_maps":
         {
-            "api_key": "AIzaSyBVAy2uOMXaEZ4fwUrKaaQQ-HSHVpljOjc",
+            "api_key": "",
 			"secret": "",
 	    	"peter": {
-						"api_key": "AIzaSyBS_69uQoDSFl0yx-0LsDMkfYxl_qsNWfM",
-						"secret": "xr_ED9lzBi15gtTalLPRHGh70Qg="
+						"api_key": "",
+						"secret": ""
                       },
             "rpcvision1": {
-                        "api_key": "AIzaSyB_qVbirzoGOtafkpWXzgefptPkjnKJs8Y",
-                        "secret": "7doJPXqoLuzc1BCYj1ED6L7hloI="
+                        "api_key": "",
+                        "secret": ""
             }
         }
 }
